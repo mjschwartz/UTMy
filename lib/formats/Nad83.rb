@@ -1,6 +1,6 @@
 class Nad83
 
-  attr_reader :a, :e, :e1sq, :k0
+  attr_reader :a, :e, :e1sq, :k0, :force_hemisphere
 
   def initialize
     @a = 6378137
@@ -8,6 +8,7 @@ class Nad83
     @e = 0.081819191
     @e1sq = 0.006739497
     @k0 = 0.9996
+    @force_hemisphere = false
   end
 
 end

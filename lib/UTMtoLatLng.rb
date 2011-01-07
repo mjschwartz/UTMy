@@ -27,18 +27,26 @@ class UTMtoLatLng
 
   attr_accessor :latitude, :longitude
 
-  def initialize(zone, latZone, easting, northing, datum)
+  def initialize(zone, latZone, easting, northing, format)
     @easting = easting.to_f
     @northing = northing.to_f
     @zone = zone
-    @northern_hemisphere = determine_hemisphere(latZone)
-    if datum == 'NAD27'
-      self.set_nad27
-      #default to nad83
-    else
-      self.set_nad83
-    end
+    @northern_hemisphere = determine_hemisphere(latZone) unless format.force_hemisphere
+    self.set_format_variables format
     self.utmToLatLng
+  end
+
+
+  def set_format_variables format
+    @a = format.a
+    @e = format.e
+    @e1sq = format.e1sq
+    @k0 = format.k0
+
+    if format.force_hemisphere
+      @northern_hemisphere = format.northern_hemisphere
+    end
+
   end
 
   def lat
@@ -47,25 +55,6 @@ class UTMtoLatLng
 
   def lng
     @longitude
-  end
-
-  def set_nad83
-    @a = 6378137
-    # b = 6356752.3142 - derivatives already computed; provide for reference
-    @e = 0.081819191
-    @e1sq = 0.006739497
-    @k0 = 0.9996
-  end
-
-  def set_nad27
-    @a = 6378206.4
-    #b = 6356583.8 - derivatives already computed; provide for reference
-    @e = 0.0822718542230039
-    @e1sq = 0.00681478494591519
-    @k0 = 0.9996
-    # NAD27 lacks a char specifier for zone and 
-    # is specific to North America
-    @northern_hemisphere = true
   end
 
   def determine_hemisphere(latZone)
@@ -78,9 +67,7 @@ class UTMtoLatLng
 
 
   def utmToLatLng()
-    if !@northern_hemisphere
-      @northing = 10000000 - @northing
-    end
+    if !@northern_hemisphere : @northing = 10000000 - @northing end
     
     arc = @northing / @k0
     mu = arc / (@a * (1 - (@e** 2) / 4.0 - 3 * (@e**4) / 64.0 - 5 * (@e**6) / 256.0))
@@ -116,12 +103,11 @@ class UTMtoLatLng
     _a2 = (lof1 - lof2 + lof3) / Math.cos(phi1)
     _a3 = _a2 * 180 / Math::PI
     
-    self.latitude = 180 * (phi1 - fact1 * (fact2 + fact3 + fact4)) / Math::PI
+    @latitude = 180 * (phi1 - fact1 * (fact2 + fact3 + fact4)) / Math::PI
     
-    if !@northern_hemisphere
-      self.latitude = -latitude
-    end
-    self.longitude = ((@zone > 0) and (6 * @zone - 183.0) or 3.0) - _a3
+    if !@northern_hemisphere : @latitude = -@latitude end
+
+    @longitude = ((@zone > 0) and (6 * @zone - 183.0) or 3.0) - _a3
 
   end
 
