@@ -11,11 +11,10 @@ UTMFormat.rb contains a factory method that will instantiate an object containin
 
 Usage:
 
-To convert a NAD 83 encoded geopoint:
-
 format = UTMFormat.factory(:format)
 UTMtoLatLng.new(LatitudeZone, ZoneLetter, easting, northing, Format_object)
 
+To convert a NAD 83 encoded geopoint:
 
 format = UTMFormat.factory(:nad83)
 test = UTMtoLatLng.new(34, 'G', 683473, 4942631, format)
