@@ -1,4 +1,4 @@
-class Nad83
+class FormatNad83
 
   attr_reader :a, :e, :e1sq, :k0, :force_hemisphere
 

@@ -8,8 +8,8 @@ Class providing a factory method to supply formating variables of different UTM 
 =end
 
 
-require 'Nad83'
-require 'Nad27'
+require 'FormatNad83'
+require 'FormatNad27'
 
 
 
@@ -18,8 +18,8 @@ class UTMFormat
 
   def UTMFormat.factory(type)
     formats = {
-      :nad27 => Nad27,
-      :nad83 => Nad83
+      :nad27 => FormatNad27,
+      :nad83 => FormatNad83
     }
 
     formats[type].new

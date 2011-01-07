@@ -5,23 +5,29 @@ A library of ruby classes to assist handling geodata encoded in the Universal Tr
 NAD 27 and NAD 83 are two UTM formats commonly used in North America.  Much of the published USGS data is wrapped in these contianers.
 
 
-UTMtoLatLng.rb is a class that computes a standard latitude and longitude from UTM data.  It supports both NAD 27 and NAD 83 formatted input.
+UTMtoLatLng.rb is a class that computes a standard latitude and longitude from UTM data. 
+
+UTMFormat.rb contains a factory method that will instantiate an object containing formatting information.  There are curently two formatting classes: NAD 83 and NAD 27.
 
 Usage:
 
 To convert a NAD 83 encoded geopoint:
 
-UTMtoLatLng.new(LatitudeZone, ZoneLetter, easting, northing, format)
+format = UTMFormat.factory(:format)
+UTMtoLatLng.new(LatitudeZone, ZoneLetter, easting, northing, Format_object)
 
-test = UTMtoLatLng.new(34, 'G', 683473, 4942631, 'NAD83')
+
+format = UTMFormat.factory(:nad83)
+test = UTMtoLatLng.new(34, 'G', 683473, 4942631, format)
 test.lat # -45.6455755128126
 test.lng # 23.3544905255577
 test.lat.class # Float
 test.lng.class # Float
 
-As NAD 27 is specific to North America there is typically not a zone letter required.  Simply pass a false value for the zone letter in your constructor.
+As NAD 27 is specific to North America there is typically not a zone letter required.  Simply pass a false value for the zone letter in your constructor if one is not required.
 
-test = UTMtoLatLng.new(13, false, 543710, 4114220, 'NAD27')
+format = UTMFormat.factory(:nad27)
+test = UTMtoLatLng.new(13, false, 543710, 4114220, format)
 test.lat # 23.4577922405194
 test.lng # -104.507625861921
 

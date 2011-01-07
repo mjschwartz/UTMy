@@ -1,5 +1,5 @@
 
-$LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), "..", "lib/formats"))
+$LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), "..", "lib"))
 
 require "UTMFormat"
 require "test/unit"

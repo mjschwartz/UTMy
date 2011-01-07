@@ -1,4 +1,4 @@
-class Nad27
+class FormatNad27
 
   attr_reader :a, :e, :e1sq, :k0, :force_hemisphere, :northern_hemisphere
 
