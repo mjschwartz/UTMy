@@ -7,6 +7,12 @@ class TestUTMtoLatLng < Test::Unit::TestCase
   #covering for Ruby < 1.9 round()
 
   def test_simple
+    test = UTMtoLatLng.new(8, 'Q', 453580, 2594272, 'NAD83')
+    assert_equal('23.4577922', test.lat.to_s.slice(0,10) )
+    assert_equal('-135.45450', test.lng.to_s.slice(0,10) )
+  end
+
+  def test_southern_hemisphere
     test = UTMtoLatLng.new(34, 'G', 683473, 4942631, 'NAD83')
     assert_equal('-45.645575', test.lat.to_s.slice(0,10) )
     assert_equal('23.3544905', test.lng.to_s.slice(0,10) )
