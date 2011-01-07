@@ -23,7 +23,6 @@ THE SOFTWARE.
 
 =end
 
-
 class UTMtoLatLng
 
   attr_accessor :latitude, :longitude

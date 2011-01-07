@@ -1,7 +1,5 @@
 
-dir = File.dirname(File.expand_path(__FILE__))
-$LOAD_PATH.unshift dir + '/../formats'
-
+$LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), "..", "lib/formats"))
 
 require "UTMFormat"
 require "test/unit"
