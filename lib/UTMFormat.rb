@@ -7,6 +7,8 @@ Class providing a factory method to supply formating variables of different UTM 
 
 =end
 
+# add current dir to loadpath
+$LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__))
 
 require 'FormatNad83'
 require 'FormatNad27'
