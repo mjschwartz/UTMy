@@ -1,8 +1,8 @@
 
 
 
-require 'UTMtoLatLng'
-require 'UTMFormat'
+require 'lib/UTMtoLatLng'
+require 'lib/UTMFormat'
 
 
 
