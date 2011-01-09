@@ -34,4 +34,3 @@ class TestUTMtoLatLng < Test::Unit::TestCase
   end
 
 end
-
